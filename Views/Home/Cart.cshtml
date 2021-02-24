@@ -1,0 +1,77 @@
+﻿@model IEnumerable<EcommerceSite.Models.cart>
+@using System.Data.Entity;
+@using EcommerceSite.Models;
+@{projet_DataBaseEntities db = new projet_DataBaseEntities();
+}
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<!-- Shopping cart section  -->
+<section id="cart" class="py-3">
+    <div class="container-fluid w-75">
+        <h5 class="font-baloo font-size-20">Shopping Cart</h5>
+
+        <!--  shopping cart items   -->
+        <div class="row">
+            <div class="col-sm-9">
+                <!-- cart item -->
+                @{double price = 0.00; }
+                @foreach (var item in Model)
+                {
+                    string image = db.product_images.Where(u => u.product == item.product).Select(u => u.smallSize).FirstOrDefault();
+
+                    <div class="row border-top py-3 mt-3">
+                        <div class="col-sm-2">
+                            <img src="../assets/products/@image" style="height: 120px;" alt="cart1" class="img-fluid">
+                        </div>
+                        <div class="col-sm-8">
+                            <h5 class="font-baloo font-size-20">@item.product1.label</h5>
+                            <small>@item.product1.company</small>
+                            <!-- product qty -->
+                            <div class="qty d-flex pt-2">
+                                <div style="width: 50px !important" class="d-flex font-rale w-25">
+                                    <input type="number" name="qte" id="qte" style="width: 50px !important" class="qty_input border px-2 w-100 bg-light" min="1" placeholder="1">
+                                </div>
+                                <form action="/carts/Delete" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input id="id" name="id" value="@item.id" hidden/>
+                                    <button type="submit" class="btn font-baloo text-danger px-3 border-right">Delete</button>
+                                </form>
+
+                            </div>
+                            <!-- !product qty -->
+                        </div>
+
+                        <div class="col-sm-2 text-right">
+                            <div class="font-size-20 text-danger font-baloo">
+                                <span class="product_price">@item.product1.price</span> DH
+                            </div>
+                        </div>
+                    </div>
+                    <!-- !cart item -->
+                    price += item.product1.price;
+                }
+
+            </div>
+            <!-- subtotal section-->
+            <div class="col-sm-3">
+                <div class="sub-total border text-center mt-2">
+                    <h6 class="font-size-12 font-rale text-success py-3"><i class="fas fa-check"></i> Your order is eligible for FREE Delivery.</h6>
+                    <div class="border-top py-4">
+                        <h5 class="font-baloo font-size-20">Subtotal (@Model.Count() item):&nbsp; <span class="text-danger">DH <span class="text-danger" id="deal-price">@price</span> </span> </h5>
+                        <a href="@Url.Action("payment","Home")" class="btn btn-warning mt-3">Proceed to Buy</a>
+                    </div>
+                </div>
+            </div>
+            <!-- !subtotal section-->
+        </div>
+        <!--  !shopping cart items   -->
+    </div>
+</section>
+<!-- !Shopping cart section  -->

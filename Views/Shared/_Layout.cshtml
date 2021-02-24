@@ -1,0 +1,119 @@
+﻿
+@using System.Data.Entity;
+@using EcommerceSite.Models;
+@{projet_DataBaseEntities db = new projet_DataBaseEntities();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="~/Content/Style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <style>
+
+
+    </style>
+</head>
+<body style="background-color: ">
+
+    <!-- start #header -->
+    <header id="header">
+        <div class="strip d-flex justify-content-between px-4 py-1 bg-light">
+            <p class="font-rale font-size-12 text-black-50 m-0">El Ouassouli Youssef - Elfelali Amine - Mobile Shopping App PFA</p>
+            <div class="font-rale font-size-14">
+                @if (Session["email"] != null)
+                {
+                    <a href="/users/Details/@Session["id"]" class="px-3 border-right border-left text-dark">@Session["email"].ToString()</a>
+                    <a href="/users/logout" class="px-3 border-right border-left text-dark">Log Out</a>
+                }
+                else
+                {
+                    <a href="/users/Create" class="px-3 border-right border-left text-dark">Sign Up</a>
+                    <a href="/users/login" class="px-3 border-right border-left text-dark">Login</a>
+                }
+            </div>
+        </div>
+
+        <!-- Primary Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark color-second-bg" style="background-color: #000000">
+            <a class="navbar-brand" href="/Home/Index">Mobile Shopee</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="nav1 collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav m-auto font-rubik">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index","products")">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Blogs">Blogs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#Reports">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Contact">Contact us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Home/Abouts">About us</a>
+                    </li>
+                </ul>
+                <form action="#" class="font-size-14 font-rale">
+                    <a href="@Url.Action("Cart","Home")" class="py-2 rounded-pill color-primary-bg">
+                        <span class="font-size-16 px-2 text-white"><i class="fas fa-shopping-cart"></i></span>
+                        @if (Session["email"] != null)
+                        {
+                            int id = db.users.Find(int.Parse(Session["id"].ToString())).id;
+                            <span class="px-3 py-2 rounded-pill text-dark bg-light">@db.carts.Where(u => u.user == id).Count()</span>
+                        }
+                        else
+                        {
+                            <span class="px-3 py-2 rounded-pill text-dark bg-light">0</span>
+                        }
+                    </a>
+                </form>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg navbar-dark color-primary-bg" style="        background-color: #370617">
+            <div class="nav1 collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav m-auto font-rubik">
+                            @foreach (var category in db.subCategories.Where(u => u.isActive == true).ToList())
+                            {
+                                <li class="nav-item active">
+                                    <a href="@Url.Action("Products","Home",new { @id = category.id})" class="nav-link">@category.label</a>
+                                </li>
+                            }
+                </ul>
+            </div>
+        </nav>
+
+        <!-- !Primary Navigation -->
+    </header>
+    <!-- !start #header -->
+    <!-- start #main-site -->
+    <main id="main-site">
+        @RenderBody()
+    </main>
+    <!-- !start #main-site -->
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.8.3/umd/popper.min.js" integrity="sha512-4dvO5Z/pIXt0GRvvrgYNjb+ihLc2thByw1vVsP8AbHh4GNaYatYqAUJVDqFvxCP3FTkzqnqloRa10UVtxkb5sQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha512-Zq2BOxyhvnRFXu0+WE6ojpZLOU2jdnqbrM1hmVdGzyeCa1DgM3X5Q4A/Is9xA1IkbUeDd7755dNNI/PzSf2Pew==" crossorigin="anonymous"></script>
+    <script src="~/Scripts/index.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

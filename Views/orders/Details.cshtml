@@ -1,0 +1,59 @@
+﻿@model EcommerceSite.Models.order
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>order</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.orderDetails)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.orderDetails)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdAT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdAT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isActive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isActive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.user.userName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.payment1.paymentType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.payment1.paymentType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

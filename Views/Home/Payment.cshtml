@@ -1,0 +1,291 @@
+﻿@model IEnumerable<EcommerceSite.Models.cart>
+@using System.Data.Entity;
+@using EcommerceSite.Models;
+@{projet_DataBaseEntities db = new projet_DataBaseEntities(); }
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    int id = db.users.Find(int.Parse(Session["id"].ToString())).id;
+}
+
+<style>
+    .payment {
+        margin: auto;
+        margin-top: 15px;
+        height: auto;
+        padding: 25px;
+        background-color: whitesmoke;
+        width: 55%;
+        border-radius: 35px;
+    }
+
+    .Links {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: 35px;
+    }
+
+        .Links a {
+            text-decoration: none;
+            color: #370617;
+            font-family: 'Baloo Thambi 2';
+        }
+
+    .Cart {
+        padding-left: 50px;
+        align-self: center;
+    }
+
+    .Home {
+        align-self: center;
+        padding-left: 50px;
+    }
+
+        .Home a {
+            font-size: 25px;
+        }
+
+    .head {
+        grid-area: head;
+    }
+
+    .personal-infos {
+        grid-area: personal;
+    }
+
+    .Order-Summary {
+        grid-area: order;
+    }
+
+    .payment-forms {
+        display: grid;
+        grid-template-areas: 'head head''personal order';
+        grid-gap: 15px;
+    }
+
+    .head {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+    }
+
+        .head p {
+            text-decoration: none;
+            color: #370617;
+            font-family: 'Baloo Thambi 2';
+        }
+
+    .title {
+        grid-area: title;
+    }
+
+    .payment-type {
+        grid-area: type;
+    }
+
+    .infos-forms {
+        grid-area: infos;
+    }
+
+    .personal-infos {
+        display: grid;
+        grid-template-areas: 'title type''infos infos';
+        grid-auto-rows: 10% 90%;
+        border: 1px solid black;
+    }
+
+    .title {
+        justify-self: center;
+    }
+
+        .title p, i {
+            text-decoration: none;
+            color: #370617;
+            font-family: 'Baloo Thambi 2';
+            font-size: 20px;
+        }
+
+    .infos-forms {
+        display: grid;
+        align-items: center;
+    }
+
+    .labelText, textField {
+        text-decoration: none;
+        color: #370617;
+        font-family: 'Baloo Thambi 2';
+    }
+
+    .textField {
+        width: 50%;
+    }
+
+    .Order-Summary {
+        display: grid;
+    }
+
+    .item-Ordered {
+        display: grid;
+        grid-template-columns: 25% 75%;
+    }
+
+    .subTotal, .Delivery, .TotalTopay {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+
+    .Order-Summary, .personal-infos {
+        padding: 25px;
+        border: 0.1px solid black !important;
+    }
+
+    .bot button {
+        width: 100%;
+        outline: none;
+        border: none;
+        background-color: blue;
+        color: whitesmoke;
+        height: 50px;
+    }
+</style>
+<form action="/orders/Create" method="post">
+@Html.AntiForgeryToken()
+
+    <div class="payment">
+
+        <div class="Links">
+
+            <div class="Cart">
+                <a href="@Url.Action("Cart","Home")"><i class=""></i>Back to Cart</a>
+            </div>
+
+            <div class="Home">
+                <a href="#">Mobile Shop</a>
+            </div>
+
+        </div>
+        <hr />
+        <div class="payment-forms">
+            <div class="head">
+                <div>
+                    <p><i class=""></i>Shipping Bag</p>
+                </div>
+                <div>
+                    <p><i class=""></i>Order Details</p>
+
+                </div>
+                <div>
+                    <p><i class=""></i>Payment</p>
+                </div>
+
+            </div>
+            <div class="personal-infos">
+                <div class="title">
+                    <p>Payment</p>
+                </div>
+
+                <div class="payment-type">
+                    <i class="textField">paymentType |LOGO</i>
+
+                </div>
+
+                <div class="infos-forms">
+                    <div>
+                        <label for="customer" id="customer" class="labelText">Customer</label>
+                        <input type="number" class="textField" id="customer" name="customer" value="@db.users.Find(Session["id"]).id" hidden/>
+                        <input type="text" class="textField" disabled id="Client" name="Client" value="@db.users.Find(int.Parse(Session["id"].ToString())).userName" />
+                    </div>
+                    <div>
+                        <label for="Select" id="Select" class="labelText"></label>
+                            @foreach (var item in db.payments.ToList())
+                            {
+                                <input type="checkbox" id="payment" name="payment" value="@item.id"/>   @item.paymentType    
+                            }
+                    </div>
+
+                    <div>
+                        <label for="Cardcode" id="Cardcode" class="labelText">Card Number</label>
+                        <input type="text" class="textField" id="Cardcode" name="Cardcode" placeholder="Cardcode" />
+                    </div>
+                    <div class="card-info">
+                        <label for="ExpiryDate" id="ExpiryDate" class="labelText">Expiry Date</label>
+                        <input type="text" class="textField1" id="ExpiryDate" name="ExpiryDate" value="" placeholder="dd/mm/yyyy" />
+
+                        <label for="CVV" id="CVV" class="labelText">CVV</label>
+                        <input type="text" class="textField1" id="CVV" name="CVV" placeholder="CVV" /><span><i class="info"></i></span>
+                    </div>
+                    <div>
+                        <input type="checkbox" checked /> Save Cards Details to Wallet
+                    </div>
+                </div>
+            </div>
+            <div class="Order-Summary">
+                <div class="top-1">
+                    <h2>Order Summary</h2>
+                    <p>@db.carts.Where(u => u.user == id).Count() Items</p>
+                </div>
+                @{ double p = 0, r = 0; string list = null; }
+                @foreach (var item in Model)
+                {
+                    string image = db.product_images.Where(u => u.product == item.product).Select(u => u.smallSize).FirstOrDefault();
+                    <div class="item-Ordered">
+                        <div class="Img">
+                            <img height="100" width="70" src="../assets/products/@image" />
+                        </div>
+                        <div class="item-Details">
+                            <p>@item.product1.label</p>
+                            <p>@item.product1.price</p>
+                            <p>Qte</p>
+                        </div>
+                    </div>
+                    p += item.product1.price;
+                    list += "Product Name : " + item.product1.label + " - Price :" + item.product1.price + " Dhs - Qte : Qte";
+                }
+                @{ 
+                    list = list + "  ===> SubTotal : " + p + " Dhs";
+                }
+                <hr />
+                <div class="subTotal">
+                    <p>SubTotal</p>
+                    <p>@p Dhs</p>
+                </div>
+                @if (p <= 10000)
+                {
+                    <div class="Delivery">
+                        <p>Delivery</p>
+                        <p>Free</p>
+                    </div>
+                    list += " - Delivery Free";
+                }
+                else
+                {
+                    Random random = new Random();
+                    r = random.Next(300, 800);
+                    <div class="Delivery">
+                        <p>Delivery</p>
+                        <p>@r</p>
+                    </div>
+                    list += "  -  Delevery : " + r;
+                }
+                
+                <div class="TotalTopay">
+                    <p>Total To Pay</p>
+                    <p>@(p+r)</p>
+                    @{ 
+                        list += "  -  Total To Pay : " + (p + r);
+                    }
+                </div>
+                <div class="bot">
+                    <input type="text" hidden value="@list" id="orderDetails" name="orderDetails" />
+                    <input type="text" hidden value="true" name="isActive" id="isActive"/>
+                    <button class="submit">Make Payment</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</form>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<EcommerceSite.Models.cart>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Qte)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdAT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.product1.label)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user1.userName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qte)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdAT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.product1.label)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.user1.userName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<EcommerceSite.Models.product>
+@using System.Data.Entity;
+@using EcommerceSite.Models;
+@{projet_DataBaseEntities db = new projet_DataBaseEntities();
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Special Price -->
+<section id="special-price">
+    <div class="container">
+        <h4 class="font-rubik font-size-20">Special Price</h4>
+        <div id="filters" class="button-group text-right font-baloo font-size-16">
+            <button class="btn is-checked" data-filter=".@Session["Category"]">@Session["Category"]</button>
+        </div>
+        <hr />
+        <div class="grid">
+            @foreach (var product in Model)
+                {
+                    string image = db.product_images.Where(u => u.product1.id == product.id).Select(u => u.smallSize).FirstOrDefault();
+                    <div class="grid-item @Session["Category"] border">
+                        <div class="item py-2" style="width: 200px;">
+                            <div class="product font-rale">
+                                <a href="#"><img src="~/assets/products/@image" alt="product1" class="img-fluid"></a>
+                                <div class="text-center">
+                                    <h6>@product.label</h6>
+                                    <div class="price py-2">
+                                        <span>@product.price DH</span>
+                                    </div>
+                                    <a href="@Url.Action("Details","products",new { id = product.id })" class="btn btn-warning font-size-12">Add to Cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+        </div>
+    </div>
+</section>
+<!-- !Special Price -->

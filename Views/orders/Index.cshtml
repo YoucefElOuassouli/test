@@ -1,0 +1,54 @@
+﻿@model IEnumerable<EcommerceSite.Models.order>
+@using System.Data.Entity;
+@using EcommerceSite.Models;
+@{projet_DataBaseEntities db = new projet_DataBaseEntities();
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Payment List</h2>
+<hr />
+<p>@Session["id"]</p>
+<p>@db.orders.Where(u=> u.user.id == 1).Count()</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.orderDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdAT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user.userName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.payment1.paymentType)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createdAT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.user.userName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.payment1.paymentType)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,128 @@
+﻿@model EcommerceSite.Models.user
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    a{
+        text-decoration: none !important;
+        color: white;
+    }
+    a:hover{
+        text-decoration: none !important;
+        color: white;
+    }
+    .login-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 700px;
+        padding-top: 50px;
+        background-color: whitesmoke;
+        width: 450px;
+        box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+        padding-left: 60px;
+    }
+
+    .row-groupe {
+    }
+
+    .Login {
+        background-color: #212529; /* Green */
+        border: none;
+        border-radius: 35px;
+        color: white;
+        padding: 10px 45px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+
+    .textField {
+        width: 80%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border: 2px solid black;
+        border-radius: 4px;
+        outline: none;
+    }
+
+    .labelField {
+        color: black;
+        font-family: 'Baloo Thambi 2';
+        font-size: 15px;
+        text-transform: uppercase;
+    }
+
+    .title h4 {
+        color: black;
+        font-family: 'Baloo Thambi 2';
+        font-size: 30px;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="login-container" style="margin-top:50px; z-index: -1;">
+
+    <div class="title">
+        <h4>Account Infos</h4>
+    </div>
+
+    <div class="row-groupe">
+        <div class="danger-msg">
+            <label for="userName" id="userName" class="labelField">user name</label>
+        </div>
+        <div class="PasswordField">
+            @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "textField", @disabled = "disabled" } })
+        </div>
+    </div>
+
+    <div class="row-groupe">
+        <div class="danger-msg">
+            <label for="email" id="email" class="labelField">email</label>
+        </div>
+        <div class="PasswordField">
+            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "textField",@disabled = "disabled" } })
+        </div>
+    </div>
+
+    <div class="row-groupe">
+        <div class="danger-msg">
+            <label for="address" id="address" class="labelField">address</label>
+        </div>
+        <div class="PasswordField">
+            @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "textField",@disabled = "disabled" } })
+        </div>
+    </div>
+
+    <div class="row-groupe">
+        <div class="danger-msg">
+            <label for="phoneNumber" id="phoneNumber" class="labelField">phone Number</label>
+        </div>
+        <div class="PasswordField">
+            @Html.EditorFor(model => model.phoneNumber, new { htmlAttributes = new { @class = "textField",@disabled = "disabled" } })
+        </div>
+    </div>
+
+    <div class="row-groupe">
+        <div class="danger-msg">
+            <label for="password" id="password" class="labelField">password</label>
+        </div>
+        <div class="PasswordField">
+            <input type="password" id="password" name="password" class="textField" value="textField" disabled/>
+        </div>
+    </div>
+
+
+    <div class="row-groupe">
+        <div class="button">
+            <a href="/users/Edit/@Model.id" class="Login">Update Infos</a>
+        </div>
+    </div>
+
+</div>

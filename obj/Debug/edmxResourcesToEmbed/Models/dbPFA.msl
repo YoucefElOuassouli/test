@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="projet_DataBaseModelStoreContainer" CdmEntityContainer="projet_DataBaseEntities">
+    <EntitySetMapping Name="carts">
+      <EntityTypeMapping TypeName="projet_DataBaseModel.cart">
+        <MappingFragment StoreEntitySet="cart">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="product" ColumnName="product" />
+          <ScalarProperty Name="user" ColumnName="user" />
+          <ScalarProperty Name="Qte" ColumnName="Qte" />
+          <ScalarProperty Name="createdAT" ColumnName="createdAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="mainCategories">
+      <EntityTypeMapping TypeName="projet_DataBaseModel.mainCategory">
+        <MappingFragment StoreEntitySet="mainCategory">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="label" ColumnName="label" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createdAT" ColumnName="createdAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orders">
+      <EntityTypeMapping TypeName="projet_DataBaseModel.order">
+        <MappingFragment StoreEntitySet="order">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="customer" ColumnName="customer" />
+          <ScalarProperty Name="payment" ColumnName="payment" />
+          <ScalarProperty Name="orderDetails" ColumnName="orderDetails" />
+          <ScalarProperty Name="createdAT" ColumnName="createdAT" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payments">
+      <EntityTypeMapping TypeName="projet_DataBaseModel.payment">
+        <MappingFragment StoreEntitySet="payment">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="paymentType" ColumnName="paymentType" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createdAT" ColumnName="createdAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="projet_DataBaseModel.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="label" ColumnName="label" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="inStock" ColumnName="inStock" />
+          <ScalarProperty Name="company" ColumnName="company" />
+          <ScalarProperty Name="subCategory" ColumnName="subCategory" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createdAT" ColumnName="createdAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product_images">
+      <EntityTypeMapping TypeName="projet_DataBaseModel.product_images">
+        <MappingFragment StoreEntitySet="product_images">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="smallSize" ColumnName="smallSize" />
+          <ScalarProperty Name="mediumSize" ColumnName="mediumSize" />
+          <ScalarProperty Name="largeSize" ColumnName="largeSize" />
+          <ScalarProperty Name="product" ColumnName="product" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reports">
+      <EntityTypeMapping TypeName="projet_DataBaseModel.report">
+        <MappingFragment StoreEntitySet="report">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="customer" ColumnName="customer" />
+          <ScalarProperty Name="adminMail" ColumnName="adminMail" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="secondaryCategories">
+      <EntityTypeMapping TypeName="projet_DataBaseModel.secondaryCategory">
+        <MappingFragment StoreEntitySet="secondaryCategory">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="label" ColumnName="label" />
+          <ScalarProperty Name="mainCategory" ColumnName="mainCategory" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createdAT" ColumnName="createdAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="subCategories">
+      <EntityTypeMapping TypeName="projet_DataBaseModel.subCategory">
+        <MappingFragment StoreEntitySet="subCategory">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="label" ColumnName="label" />
+          <ScalarProperty Name="secondaryCategory" ColumnName="secondaryCategory" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createdAT" ColumnName="createdAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="projet_DataBaseModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+          <ScalarProperty Name="createdAT" ColumnName="createdAT" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

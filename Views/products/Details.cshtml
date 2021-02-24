@@ -1,0 +1,169 @@
+﻿@model EcommerceSite.Models.product
+@using System.Data.Entity;
+@using EcommerceSite.Models;
+@{projet_DataBaseEntities db = new projet_DataBaseEntities();
+}
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- start #main-site -->
+<main id="main-site">
+
+    <!--   product  -->
+    <section id="product" class="py-3">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-6">
+
+                    @{string image = db.product_images.Where(u => u.product == Model.id).Select(u => u.smallSize).FirstOrDefault();}
+
+                    <img src="~/assets/products/@image" alt="product" class="img-fluid">
+                    <div class="form-row pt-4 font-size-16 font-baloo">
+                        <div class="col">
+                            <form action="/Home/AddToCart" method="post">
+                                <input type="text" id="id" name="id" value="@Model.id" hidden />
+                                <button type="submit" class="btn btn-warning form-control">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 py-5">
+                    <h5 class="font-baloo font-size-20">@Model.label</h5>
+                    <small>@Model.company</small>
+                    <hr class="m-0">
+                    @{ double oldPrice = 0; double uSaved = 0;}
+                    <!---    product price       -->
+                    <table class="my-3">
+                        <tr class="font-rale font-size-14">
+                            <td>M.R.P:</td>
+                            <td>
+                                <strike>
+                                    @{
+                                        Random re = new Random();
+                                        uSaved = re.Next(50, 450);
+                                        oldPrice = Model.price + uSaved;
+                                    }@oldPrice
+                                </strike> Dhs
+                            </td>
+                        </tr>
+                        <tr class="font-rale font-size-14">
+                            <td>Deal Price:</td>
+                            <td class="font-size-20 text-danger"><span class="product-price">@Model.price</span> Dhs<small class="text-dark font-size-12">&nbsp;&nbsp;Inclusive of all taxes</small></td>
+                        </tr>
+                        <tr class="font-rale font-size-14">
+                            <td>You Save:</td>
+                            <td><span class="font-size-16 text-danger">@uSaved</span> Dhs</td>
+                        </tr>
+                    </table>
+                    <!---    !product price       -->
+                    <!--    #policy -->
+                    <div id="policy">
+                        <div class="d-flex">
+                            <div class="return text-center mr-5">
+                                <div class="font-size-20 my-2 color-second">
+                                    <span class="fas fa-retweet border p-3 rounded-pill"></span>
+                                </div>
+                                <a style="text-decoration: none;color:red;" href="#" class="font-rale font-size-12">10 Days <br> Replacement</a>
+                            </div>
+                            <div class="return text-center mr-5">
+                                <div class="font-size-20 my-2 color-second">
+                                    <span class="fas fa-truck  border p-3 rounded-pill"></span>
+                                </div>
+                                <a href="#" style="text-decoration: none;color:red;" class="font-rale font-size-12">Daily Tuition <br>Deliverd</a>
+                            </div>
+                            <div class="return text-center mr-5">
+                                <div class="font-size-20 my-2 color-second">
+                                    <span class="fas fa-check-double border p-3 rounded-pill"></span>
+                                </div>
+                                <a href="#" style="text-decoration: none;color:red;" class="font-rale font-size-12">1 Year <br>Warranty</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--    !policy -->
+                    <hr>
+
+                    <!-- order-details -->
+                    <div id="order-details" class="font-rale d-flex flex-column text-dark">
+                        <small>Delivery by : @(DateTime.Today.ToShortDateString())  -->  @(DateTime.Today.ToShortDateString())</small>
+                    </div>
+                    <!-- !order-details -->
+
+                    <!-- size -->
+                    @if (Model.subCategory1.label == "Computers" || Model.subCategory1.label == "Phones")
+                    {
+                        <div class="size my-3">
+                            <h6 class="font-baloo">Size :</h6>
+                            <div class="d-flex justify-content-between w-75">
+                                <div class="font-rubik border p-2">
+                                    <button class="btn p-0 font-size-14">4GB RAM</button>
+                                </div>
+                                <div class="font-rubik border p-2">
+                                    <button class="btn p-0 font-size-14">6GB RAM</button>
+                                </div>
+                                <div class="font-rubik border p-2">
+                                    <button class="btn p-0 font-size-14">8GB RAM</button>
+                                </div>
+                            </div>
+                        </div>
+                        if (Model.subCategory1.label == "Computers")
+                        {
+                            <div class="size my-3">
+                                <h6 class="font-baloo">Graphic Card :</h6>
+                                <div class="d-flex justify-content-between w-75">
+                                    <div class="font-rubik border p-2">
+                                        <button class="btn p-0 font-size-14">GeForce RTX 20</button>
+                                    </div>
+                                    <div class="font-rubik border p-2">
+                                        <button class="btn p-0 font-size-14">GeForce RTX 30</button>
+                                    </div>
+                                    <div class="font-rubik border p-2">
+                                        <button class="btn p-0 font-size-14">GeForce GTX 10</button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                    }
+                    else
+                    {
+                        <div class="size my-3">
+                            <h6 class="font-baloo">Size :</h6>
+                            <div class="d-flex justify-content-between w-75">
+                                <div class="font-rubik border p-2">
+                                    <button class="btn p-0 font-size-14">X</button>
+                                </div>
+                                <div class="font-rubik border p-2">
+                                    <button class="btn p-0 font-size-14">XL</button>
+                                </div>
+                                <div class="font-rubik border p-2">
+                                    <button class="btn p-0 font-size-14">XLL</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <!-- !size -->
+
+
+                </div>
+
+                <div class="col-12">
+                    <h6 class="font-rubik">Product Description</h6>
+                    <hr>
+                    <p class="font-rale font-size-14">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat inventore vero numquam error est ipsa, consequuntur temporibus debitis nobis sit, delectus officia ducimus dolorum sed corrupti. Sapiente optio sunt provident, accusantium eligendi eius reiciendis animi? Laboriosam, optio qui? Numquam, quo fuga. Maiores minus, accusantium velit numquam a aliquam vitae vel?</p>
+                    <p class="font-rale font-size-14">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat inventore vero numquam error est ipsa, consequuntur temporibus debitis nobis sit, delectus officia ducimus dolorum sed corrupti. Sapiente optio sunt provident, accusantium eligendi eius reiciendis animi? Laboriosam, optio qui? Numquam, quo fuga. Maiores minus, accusantium velit numquam a aliquam vitae vel?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--   !product  -->
+
+
+
+</main>
+<!-- !start #main-site -->

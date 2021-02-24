@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="projet_DataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="cart">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="product" Type="int" />
+    <Property Name="user" Type="int" />
+    <Property Name="Qte" Type="int" />
+    <Property Name="createdAT" Type="date" />
+  </EntityType>
+  <EntityType Name="mainCategory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="label" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="isActive" Type="bit" />
+    <Property Name="createdAT" Type="date" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customer" Type="int" />
+    <Property Name="payment" Type="int" />
+    <Property Name="orderDetails" Type="text" Nullable="false" />
+    <Property Name="createdAT" Type="date" />
+    <Property Name="isActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="payment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="paymentType" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="isActive" Type="bit" />
+    <Property Name="createdAT" Type="date" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="label" Type="varchar" MaxLength="35" Nullable="false" />
+    <Property Name="price" Type="float" Nullable="false" />
+    <Property Name="inStock" Type="int" />
+    <Property Name="company" Type="varchar" MaxLength="35" Nullable="false" />
+    <Property Name="subCategory" Type="int" />
+    <Property Name="isActive" Type="bit" />
+    <Property Name="createdAT" Type="date" />
+  </EntityType>
+  <EntityType Name="product_images">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="smallSize" Type="varchar" MaxLength="35" />
+    <Property Name="mediumSize" Type="varchar" MaxLength="35" />
+    <Property Name="largeSize" Type="varchar" MaxLength="35" />
+    <Property Name="product" Type="int" />
+  </EntityType>
+  <EntityType Name="report">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customer" Type="int" />
+    <Property Name="adminMail" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="content" Type="text" Nullable="false" />
+    <Property Name="createdAt" Type="date" />
+    <Property Name="isActive" Type="bit" />
+  </EntityType>
+  <EntityType Name="secondaryCategory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="label" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="mainCategory" Type="int" />
+    <Property Name="isActive" Type="bit" />
+    <Property Name="createdAT" Type="date" />
+  </EntityType>
+  <EntityType Name="subCategory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="label" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="secondaryCategory" Type="int" />
+    <Property Name="isActive" Type="bit" />
+    <Property Name="createdAT" Type="date" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userName" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="phoneNumber" Type="varchar" MaxLength="10" />
+    <Property Name="email" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="32" />
+    <Property Name="address" Type="text" Nullable="false" />
+    <Property Name="isAdmin" Type="bit" />
+    <Property Name="createdAT" Type="date" />
+    <Property Name="isActive" Type="bit" />
+  </EntityType>
+  <Association Name="FK__cart__product__68487DD7">
+    <End Role="product" Type="Self.product" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="cart" Type="Self.cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__cart__user__693CA210">
+    <End Role="user" Type="Self.user" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="cart" Type="Self.cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="user" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order__customer__31EC6D26">
+    <End Role="user" Type="Self.user" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="order" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__order__payment__32E0915F">
+    <End Role="payment" Type="Self.payment" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="order" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payment">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="order">
+        <PropertyRef Name="payment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product__subCate__60A75C0F">
+    <End Role="subCategory" Type="Self.subCategory" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="subCategory">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="subCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product_i__produ__656C112C">
+    <End Role="product" Type="Self.product" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="product_images" Type="Self.product_images" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product_images">
+        <PropertyRef Name="product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__report__customer__29572725">
+    <End Role="user" Type="Self.user" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="report" Type="Self.report" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="report">
+        <PropertyRef Name="customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__secondary__mainC__3D5E1FD2">
+    <End Role="mainCategory" Type="Self.mainCategory" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="secondaryCategory" Type="Self.secondaryCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mainCategory">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="secondaryCategory">
+        <PropertyRef Name="mainCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__subCatego__secon__59FA5E80">
+    <End Role="secondaryCategory" Type="Self.secondaryCategory" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="subCategory" Type="Self.subCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="secondaryCategory">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="subCategory">
+        <PropertyRef Name="secondaryCategory" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="projet_DataBaseModelStoreContainer">
+    <EntitySet Name="cart" EntityType="Self.cart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="mainCategory" EntityType="Self.mainCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="order" EntityType="Self.order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payment" EntityType="Self.payment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product_images" EntityType="Self.product_images" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="report" EntityType="Self.report" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="secondaryCategory" EntityType="Self.secondaryCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="subCategory" EntityType="Self.subCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__cart__product__68487DD7" Association="Self.FK__cart__product__68487DD7">
+      <End Role="product" EntitySet="product" />
+      <End Role="cart" EntitySet="cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__cart__user__693CA210" Association="Self.FK__cart__user__693CA210">
+      <End Role="user" EntitySet="user" />
+      <End Role="cart" EntitySet="cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order__customer__31EC6D26" Association="Self.FK__order__customer__31EC6D26">
+      <End Role="user" EntitySet="user" />
+      <End Role="order" EntitySet="order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__order__payment__32E0915F" Association="Self.FK__order__payment__32E0915F">
+      <End Role="payment" EntitySet="payment" />
+      <End Role="order" EntitySet="order" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product__subCate__60A75C0F" Association="Self.FK__product__subCate__60A75C0F">
+      <End Role="subCategory" EntitySet="subCategory" />
+      <End Role="product" EntitySet="product" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product_i__produ__656C112C" Association="Self.FK__product_i__produ__656C112C">
+      <End Role="product" EntitySet="product" />
+      <End Role="product_images" EntitySet="product_images" />
+    </AssociationSet>
+    <AssociationSet Name="FK__report__customer__29572725" Association="Self.FK__report__customer__29572725">
+      <End Role="user" EntitySet="user" />
+      <End Role="report" EntitySet="report" />
+    </AssociationSet>
+    <AssociationSet Name="FK__secondary__mainC__3D5E1FD2" Association="Self.FK__secondary__mainC__3D5E1FD2">
+      <End Role="mainCategory" EntitySet="mainCategory" />
+      <End Role="secondaryCategory" EntitySet="secondaryCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK__subCatego__secon__59FA5E80" Association="Self.FK__subCatego__secon__59FA5E80">
+      <End Role="secondaryCategory" EntitySet="secondaryCategory" />
+      <End Role="subCategory" EntitySet="subCategory" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

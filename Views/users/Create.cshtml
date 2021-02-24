@@ -1,0 +1,129 @@
+﻿@model EcommerceSite.Models.user
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <style>
+
+            .login-container {
+
+                margin: auto;
+                margin-top: 25px;
+                height: 100%;
+                padding-top: 50px;
+                background-color: whitesmoke;
+                width: 450px;
+                box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+                padding-left: 80px;
+                padding-bottom: 50px;
+            }
+
+            .row-groupe {
+            }
+
+            .Login {
+                background-color: #212529; /* Green */
+                border: none;
+                border-radius: 35px;
+                color: white;
+                padding: 10px 45px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+            }
+
+            .textField {
+                width: 80%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                border: 2px solid #06d6a0;
+                border-radius: 4px;
+                outline: none;
+            }
+
+            .labelField {
+                color: black;
+                font-family: 'Baloo Thambi 2';
+                font-size: 15px;
+                text-transform: uppercase;
+            }
+
+            .title h4 {
+                color: black;
+                font-family: 'Baloo Thambi 2';
+                font-size: 30px;
+                text-transform: uppercase;
+            }
+        </style>
+
+        <div class="login-container" style="z-index: -1;">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="title">
+                <h4>Account Login</h4>
+            </div>
+
+            <div class="row-groupe">
+                @Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "labelField" })
+                <div class="emailField">
+                    @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "textField" } })
+                    @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-groupe">
+                <div class="danger-msg">
+                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "labelField" })
+                </div>
+                <div class="emailField">
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "textField" } })
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-groupe">
+                <div class="danger-msg">
+                    @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "labelField" })
+                </div>
+                <div class="PasswordField">
+
+                    <input type="password" name="password" id="password" class="textField" value />
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "" })
+                </div>
+            </div>
+
+            <div class="row-groupe">
+                @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "labelField" })
+                <div class="">
+                    @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "textField" } })
+                    @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row-groupe">
+                @Html.LabelFor(model => model.phoneNumber, htmlAttributes: new { @class = "labelField" })
+                <div class="">
+                    @Html.EditorFor(model => model.phoneNumber, new { htmlAttributes = new { @class = "textField" } })
+                    @Html.ValidationMessageFor(model => model.phoneNumber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row-groupe">
+                <div class="button">
+                    <input type="submit" value="Sign Up" class="Login" />
+                </div>
+            </div>
+            <div>
+                <p>You Have An Account ? <a href="/users/Login" class="btn-link">Log In</a></p>
+            </div>
+
+        </div>
+}
